@@ -31,7 +31,7 @@ JersuxsHome is a powerful and user-friendly home management plugin for Minecraft
 
 **Example:**
 
-![Example](https://i.ibb.co/5xrpXpx2/ezgif-42c85cd69d9168-1.gif)
+![ezgif-42c85cd69d9168-1](https://github.com/user-attachments/assets/ec14c307-2ba9-45a6-b4eb-d320ef7fdfe3)
 ## Commands
 
 | Command | Description | Usage |
