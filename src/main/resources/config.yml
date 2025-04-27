@@ -1,0 +1,27 @@
+# Configuración de Jersuxs's Home
+
+# Configuración de idioma
+language:
+  # Idioma actual (en = inglés, es = español)
+  current: "en"
+  # Idiomas disponibles
+  available:
+    - "en"
+    - "es"
+
+# Límite de homes por jugador (0 = ilimitado)
+max-homes: 5
+
+# Tiempo de espera para teleportación (segundos)
+teleport-delay: 3
+
+# Efectos al teleportarse
+teleport-effects:
+  particles: true
+  sound: true
+
+# Permisos por mundo
+world-permissions:
+  world: true
+  world_nether: true
+  world_the_end: true

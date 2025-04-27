@@ -1,0 +1,39 @@
+name: JersuxsHome
+main: com.example.homeplugin.HomePlugin
+version: 1.2
+author: Jersuxs
+api-version: "1.13"
+commands:
+  home:
+    description: "✨ Teletransporta al jugador a su home 🏠"
+    usage: /home [nombre]
+    alias: hm
+  sethome:
+    description: "🏡 Establece un nuevo home"
+    usage: /sethome <nombre>
+    alias: shm
+  delhome:
+    description: "🗑️ Elimina un home"
+    usage: /delhome <nombre>
+    alias: dhm
+  edithome:
+    description: "✏️ Renombra un home"
+    usage: /edithome <nombre> <nuevo_nombre>
+    alias: ehm
+  homes:
+    description: "📋 Lista todos tus homes"
+    usage: /homes
+    alias: hms
+  homeinvite:
+    description: Invita a otro jugador a tu home
+    usage: /homeinvite <jugador> <home>
+    alias: hmi
+  homevisit:
+    description: "🏠 Visita el home de otro jugador mediante invitación"
+    usage: /homevisit <jugador> <home>
+    alias: hmv
+  homereload:
+    description: "🔄 Recarga la configuración y los archivos de idioma"
+    usage: /homereload
+    permission: homeplugin.reload
+    alias: hmr
