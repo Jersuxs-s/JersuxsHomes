@@ -1,26 +1,34 @@
-# Configuración de Jersuxs's Home
+# Jersuxs's Home Configuration
+# For support, join our Discord Server: https://discord.gg/Q2NWpZFGUQ
 
-# Configuración de idioma
+# Language settings
 language:
-  # Idioma actual (en = inglés, es = español)
+  # Current language (en = English, es = Spanish)
   current: "en"
-  # Idiomas disponibles
+  # Available languages
   available:
-    - "en"
-    - "es"
+    - "en" # English
+    - "es" # Spanish
+    - "fr" # French
+    - "pt" # Portuguese
+    - "de" # German
+    - "ru" # Russian
+    - "zh_cn" # Simplified Chinese
+    - "zh_tw" # Traditional Chinese
 
-# Límite de homes por jugador (0 = ilimitado)
+
+# Maximum homes per player (0 = unlimited)
 max-homes: 5
 
-# Tiempo de espera para teleportación (segundos)
+# Teleport delay time (seconds)
 teleport-delay: 3
 
-# Efectos al teleportarse
+# Effects when teleporting
 teleport-effects:
   particles: true
   sound: true
 
-# Permisos por mundo
+# World-specific permissions
 world-permissions:
   world: true
   world_nether: true

@@ -1,6 +1,6 @@
 name: JersuxsHome
 main: com.example.homeplugin.HomePlugin
-version: 1.2
+version: 1.3.0
 author: Jersuxs
 api-version: "1.13"
 commands:

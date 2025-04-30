@@ -2,13 +2,13 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.example.homeplugin.HomePlugin</groupId>
   <artifactId>JersuxsHome</artifactId>
-  <version>1.2</version>
+  <version>1.3.0</version>
   
   <repositories>
-    <repository>
-      <id>modrinth-repo</id>
-      <url>https://modrinth.com/plugin/jersuxss-homes</url>
-    </repository>
+        <repository>
+            <id>spigotmc-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
   </repositories>
   
   <dependencies>
@@ -30,6 +30,42 @@
           <source>1.8</source>
           <target>1.8</target>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.5.1</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <createDependencyReducedPom>true</createDependencyReducedPom>
+              <minimizeJar>true</minimizeJar>
+              <relocations>
+                <!-- Ejemplo de relocación para evitar conflictos de clases -->
+                <!--
+                <relocation>
+                  <pattern>com.google.common</pattern>
+                  <shadedPattern>com.jersuxs.shaded.google.common</shadedPattern>
+                </relocation>
+                -->
+              </relocations>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
