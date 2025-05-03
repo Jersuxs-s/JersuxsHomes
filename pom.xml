@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.example.homeplugin.HomePlugin</groupId>
   <artifactId>JersuxsHome</artifactId>
-  <version>1.3.0</version>
+  <version>1.3.5</version>
   
   <repositories>
         <repository>

@@ -10,10 +10,18 @@ import com.example.homeplugin.VersionCompatibility;
 public class HomeManager {
     private Map<String, Map<String, Location>> playerHomes;
     private HomePlugin plugin;
+    private HomeStorageManager storageManager;
     
     public HomeManager(HomePlugin plugin) {
         this.playerHomes = new HashMap<>();
         this.plugin = plugin;
+        this.storageManager = new HomeStorageManager(plugin);
+        
+        // Cargar datos al iniciar
+        plugin.getServer().getOnlinePlayers().forEach(player -> {
+            playerHomes.put(player.getUniqueId().toString(), 
+                storageManager.loadHomes(player.getUniqueId()));
+        });
     }
     
     public boolean setHome(Player player, String homeName) {
@@ -37,6 +45,7 @@ public class HomeManager {
         
         // Establecer home
         playerHomes.computeIfAbsent(playerId, k -> new HashMap<>()).put(homeName, player.getLocation());
+        storageManager.saveHomes(player.getUniqueId(), playerHomes.get(playerId));
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', 
                 plugin.getLanguageManager().getMessage("home-set")
                 .replace("{home}", homeName)));
@@ -54,6 +63,7 @@ public class HomeManager {
         }
         
         playerHomes.get(playerId).remove(homeName);
+        storageManager.saveHomes(player.getUniqueId(), playerHomes.get(playerId));
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', 
                 plugin.getLanguageManager().getMessage("home-deleted")
                 .replace("{home}", homeName)));
@@ -73,6 +83,7 @@ public class HomeManager {
         Location homeLocation = playerHomes.get(playerId).get(oldName);
         playerHomes.get(playerId).remove(oldName);
         playerHomes.get(playerId).put(newName, homeLocation);
+        storageManager.saveHomes(player.getUniqueId(), playerHomes.get(playerId));
         
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', 
                 plugin.getLanguageManager().getMessage("home-renamed")
