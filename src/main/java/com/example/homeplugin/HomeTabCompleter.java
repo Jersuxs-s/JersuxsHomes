@@ -32,7 +32,9 @@ public class HomeTabCompleter implements TabCompleter {
 
         // Autocompletar para /home <nombre>, /delhome <nombre>, /edithome <nombre_actual>
         if ((commandName.equals("home") || commandName.equals("delhome") || commandName.equals("edithome")) && args.length == 1) {
-            List<String> homeNames = new ArrayList<>(homeManager.getHomes(player).keySet());
+            // Siempre cargar los homes desde almacenamiento para autocompletar
+            HomeStorageManager storageManager = new HomeStorageManager(homeManager.getPlugin());
+            List<String> homeNames = new ArrayList<>(storageManager.loadHomes(player.getUniqueId()).keySet());
             StringUtil.copyPartialMatches(args[0], homeNames, completions);
         }
         // Autocompletar para /homeinvite <jugador> <home>

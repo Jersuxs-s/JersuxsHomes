@@ -1,6 +1,11 @@
 package com.example.homeplugin;
 
 import org.bukkit.command.Command;
+import org.bukkit.command.TabCompleter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -13,7 +18,47 @@ import org.bukkit.ChatColor; // Importar ChatColor
 import java.util.Map;
 import com.example.homeplugin.VersionCompatibility;
 
-public class HomeCommand implements CommandExecutor {
+public class HomeCommand implements CommandExecutor, TabCompleter {
+    
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
+        if (!(sender instanceof Player)) {
+            return Collections.emptyList();
+        }
+        
+        Player player = (Player) sender;
+        
+        if (args.length == 1) {
+            // Autocompletar nombres de homes para comandos que usan un solo argumento
+            if (cmd.getName().equalsIgnoreCase("home") || 
+                cmd.getName().equalsIgnoreCase("delhome") || 
+                cmd.getName().equalsIgnoreCase("edithome")) {
+                return new ArrayList<>(homeManager.getHomes(player).keySet());
+            }
+            
+            // Autocompletar nombres de jugadores para homevisit
+            if (cmd.getName().equalsIgnoreCase("homevisit")) {
+                return Bukkit.getOnlinePlayers().stream()
+                    .map(Player::getName)
+                    .collect(Collectors.toList());
+            }
+        }
+        
+        if (args.length == 2 && cmd.getName().equalsIgnoreCase("edithome")) {
+            // No autocompletar para el nuevo nombre en edithome
+            return Collections.emptyList();
+        }
+        
+        if (args.length == 2 && cmd.getName().equalsIgnoreCase("homevisit")) {
+            // Autocompletar homes del jugador objetivo
+            Player target = Bukkit.getPlayer(args[0]);
+            if (target != null) {
+                return new ArrayList<>(homeManager.getHomes(target).keySet());
+            }
+        }
+        
+        return Collections.emptyList();
+    }
     
     private HomePlugin plugin;
     private HomeManager homeManager;

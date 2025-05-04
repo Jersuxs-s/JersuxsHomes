@@ -1,35 +1,52 @@
-# Jersuxs's Home Configuration
+# ======================================================
+#      Jersuxs's Home Configuration
+# ======================================================
 # For support, join our Discord Server: https://discord.gg/Q2NWpZFGUQ
+# ======================================================
 
-# Language settings
+# ----------------------
+# Language Settings
+# ----------------------
 language:
-  # Current language (en = English, es = Spanish)
+  # Current language
   current: "en"
+  
   # Available languages
   available:
-    - "en" # English
-    - "es" # Spanish
-    - "fr" # French
-    - "pt" # Portuguese
-    - "de" # German
-    - "ru" # Russian
+    - "en"    # English
+    - "es"    # Spanish
+    - "fr"    # French
+    - "pt"    # Portuguese
+    - "de"    # German
+    - "ru"    # Russian
     - "zh_cn" # Simplified Chinese
     - "zh_tw" # Traditional Chinese
 
 
+# ----------------------
+# Home Limits
+# ----------------------
 # Maximum homes per player (0 = unlimited)
 max-homes: 5
 
-# Teleport delay time (seconds)
+
+# ----------------------
+# Teleport Settings
+# ----------------------
+# Delay before teleportation completes (in seconds)
 teleport-delay: 3
 
-# Effects when teleporting
+# Visual and audio effects when teleporting
 teleport-effects:
-  particles: true
-  sound: true
+  particles: true   # Show particle effects
+  sound: true       # Play teleport sound
 
-# World-specific permissions
+
+# ----------------------
+# World Permissions
+# ----------------------
+# Control which worlds players can set homes in
 world-permissions:
-  world: true
-  world_nether: true
-  world_the_end: true
+  world: true         # Overworld
+  world_nether: true  # Nether
+  world_the_end: true # End

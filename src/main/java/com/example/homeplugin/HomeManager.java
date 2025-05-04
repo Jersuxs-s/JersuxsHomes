@@ -12,6 +12,10 @@ public class HomeManager {
     private HomePlugin plugin;
     private HomeStorageManager storageManager;
     
+    public HomePlugin getPlugin() {
+        return plugin;
+    }
+    
     public HomeManager(HomePlugin plugin) {
         this.playerHomes = new HashMap<>();
         this.plugin = plugin;
@@ -95,7 +99,12 @@ public class HomeManager {
     public Location getHome(Player player, String homeName) {
         String playerId = player.getUniqueId().toString();
         
-        if (!playerHomes.containsKey(playerId) || !playerHomes.get(playerId).containsKey(homeName)) {
+        // Cargar homes si no están en memoria
+        if (!playerHomes.containsKey(playerId)) {
+            playerHomes.put(playerId, storageManager.loadHomes(player.getUniqueId()));
+        }
+        
+        if (!playerHomes.get(playerId).containsKey(homeName)) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', 
                     plugin.getLanguageManager().getMessage("home-not-found")
                     .replace("{home}", homeName)));

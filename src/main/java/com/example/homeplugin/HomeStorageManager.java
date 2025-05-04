@@ -17,7 +17,11 @@ public class HomeStorageManager {
         this.plugin = plugin;
         this.dataFolder = new File(plugin.getDataFolder(), "homes");
         if (!dataFolder.exists()) {
-            dataFolder.mkdirs();
+            if (!dataFolder.mkdirs()) {
+                plugin.getLogger().severe("No se pudo crear el directorio de homes: " + dataFolder.getAbsolutePath());
+            }
+        } else if (!dataFolder.canWrite()) {
+            plugin.getLogger().severe("No hay permisos de escritura en el directorio de homes: " + dataFolder.getAbsolutePath());
         }
     }
     
@@ -27,6 +31,7 @@ public class HomeStorageManager {
         
         homes.forEach((homeName, location) -> {
             String path = "homes." + homeName;
+            config.set(path + ".owner", playerId.toString());
             config.set(path + ".world", location.getWorld().getName());
             config.set(path + ".x", location.getX());
             config.set(path + ".y", location.getY());
@@ -51,19 +56,23 @@ public class HomeStorageManager {
         YamlConfiguration config = YamlConfiguration.loadConfiguration(playerFile);
         Map<String, Location> homes = new HashMap<>();
         
+        // Verificar que el UUID del propietario coincida
         if (config.contains("homes")) {
-            for (String homeName : config.getConfigurationSection("homes").getKeys(false)) {
-                String path = "homes." + homeName;
-                Location location = new Location(
-                    Bukkit.getWorld(config.getString(path + ".world")),
-                    config.getDouble(path + ".x"),
-                    config.getDouble(path + ".y"),
-                    config.getDouble(path + ".z"),
-                    (float) config.getDouble(path + ".yaw"),
-                    (float) config.getDouble(path + ".pitch")
-                );
-                homes.put(homeName, location);
-            }
+            config.getConfigurationSection("homes").getKeys(false).forEach(homeName -> {
+                String ownerUUID = config.getString("homes." + homeName + ".owner");
+                if (playerId.toString().equals(ownerUUID)) {
+                    String path = "homes." + homeName;
+                    Location location = new Location(
+                        Bukkit.getWorld(config.getString(path + ".world")),
+                        config.getDouble(path + ".x"),
+                        config.getDouble(path + ".y"),
+                        config.getDouble(path + ".z"),
+                        (float) config.getDouble(path + ".yaw"),
+                        (float) config.getDouble(path + ".pitch")
+                    );
+                    homes.put(homeName, location);
+                }
+            });
         }
         
         return homes;
